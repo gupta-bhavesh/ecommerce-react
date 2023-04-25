@@ -66,16 +66,24 @@ function* productSaga({ type, payload }) {
     case ADD_PRODUCT: {
       try {
         yield initRequest();
-
+        console.log("1");
         const { imageCollection } = payload;
         const key = yield call(firebase.generateKey);
+        console.log("2");
+
         const downloadURL = yield call(firebase.storeImage, key, 'products', payload.image);
+        console.log("3");
+
         const image = { id: key, url: downloadURL };
         let images = [];
 
         if (imageCollection.length !== 0) {
           const imageKeys = yield all(imageCollection.map(() => firebase.generateKey));
+          console.log("4");
+
           const imageUrls = yield all(imageCollection.map((img, i) => firebase.storeImage(imageKeys[i](), 'products', img.file)));
+          console.log("5");
+
           images = imageUrls.map((url, i) => ({
             id: imageKeys[i](),
             url
@@ -89,12 +97,20 @@ function* productSaga({ type, payload }) {
         };
 
         yield call(firebase.addProduct, key, product);
+
+        console.log("6");
         yield put(addProductSuccess({
           id: key,
           ...product
         }));
+        console.log("7");
+
         yield handleAction(ADMIN_PRODUCTS, 'Item succesfully added', 'success');
+        console.log("8");
+
         yield put(setLoading(false));
+        console.log("9");
+
       } catch (e) {
         yield handleError(e);
         yield handleAction(undefined, `Item failed to add: ${e?.message}`, 'error');

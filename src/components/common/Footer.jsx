@@ -1,5 +1,5 @@
 import * as Route from '@/constants/routes';
-import logo from '@/images/logo-full.png';
+import logo from '@/images/map-logo-full.png';
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 
@@ -18,7 +18,7 @@ const Footer = () => {
           <span>
             Developed by
             {' '}
-            <a href="https://github.com/jgudo">JULIUS GUEVARRA</a>
+            <a href="http://www.iitd.ac.in/">IIT DELHI</a>
           </span>
         </strong>
       </div>
@@ -30,12 +30,12 @@ const Footer = () => {
         </h5>
       </div>
       <div className="footer-col-3">
-        <strong>
+        {/* <strong>
           <span>
             Fork this project &nbsp;
             <a href="https://github.com/jgudo/ecommerce-react">HERE</a>
           </span>
-        </strong>
+        </strong> */}
       </div>
     </footer>
   );

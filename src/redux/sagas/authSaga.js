@@ -88,8 +88,13 @@ function* authSaga({ type, payload }) {
       try {
         yield initRequest();
 
+        console.log("1");
         const ref = yield call(firebase.createAccount, payload.email, payload.password);
+        console.log(ref);
+        
         const fullname = payload.fullname.split(' ').map((name) => name[0].toUpperCase().concat(name.substring(1))).join(' ');
+        console.log("3");
+        
         const user = {
           fullname,
           avatar: defaultAvatar,
@@ -101,7 +106,7 @@ function* authSaga({ type, payload }) {
           role: 'USER',
           dateJoined: ref.user.metadata.creationTime || new Date().getTime()
         };
-
+        console.log("4")
         yield call(firebase.addUser, ref.user.uid, user);
         yield put(setProfile(user));
         yield put(setAuthenticating(false));

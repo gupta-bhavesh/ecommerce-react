@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import { FilterOutlined, ShoppingOutlined } from '@ant-design/icons';
 import * as ROUTE from '@/constants/routes';
-import logo from '@/images/logo-full.png';
+import logo from '@/images/map-logo-full.png';
 import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import {
@@ -53,7 +53,7 @@ const Navigation = () => {
     ROUTE.SIGNUP,
     ROUTE.FORGOT_PASSWORD
   ];
-
+  console.log(store)
   if (store.user && store.user.role === 'ADMIN') {
     return null;
   } if (window.screen.width <= 800) {
