@@ -24,6 +24,7 @@ const ImageLoader = ({ src, alt, className }) => {
         className={`${className || ''} ${loaded ? 'is-img-loaded' : 'is-img-loading'}`}
         onLoad={onLoad}
         src={src}
+        style={{objectFit:"cover"}}
       />
     </>
   );
