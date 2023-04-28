@@ -108,18 +108,18 @@ const ViewProduct = () => {
               <div className="divider" />
               <br />
               <div>
-                <span className="text-subtle">Lens Width and Frame Size</span>
+                <span className="text-subtle">Quantity</span>
                 <br />
                 <br />
                 <Select
-                  placeholder="--Select Size--"
+                  placeholder="--Select --"
                   onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} mm`, value: size }))}
+                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} gm`, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
               </div>
               <br />
-              {product.availableColors.length >= 1 && (
+              {/* {product.availableColors.length >= 1 && (
                 <div>
                   <span className="text-subtle">Choose Color</span>
                   <br />
@@ -129,7 +129,7 @@ const ViewProduct = () => {
                     onSelectedColorChange={onSelectedColorChange}
                   />
                 </div>
-              )}
+              )} */}
               <h1>{displayMoney(product.price)}</h1>
               <div className="product-modal-action">
                 <button

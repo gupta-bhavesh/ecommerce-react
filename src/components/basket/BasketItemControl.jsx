@@ -9,6 +9,7 @@ const BasketItemControl = ({ product }) => {
 
   const onAddQty = () => {
     if (product.quantity < product.maxQuantity) {
+
       dispatch(addQtyItem(product.id));
     }
   };
@@ -53,8 +54,11 @@ BasketItemControl.propTypes = {
     keywords: PropType.arrayOf(PropType.string),
     selectedSize: PropType.string,
     selectedColor: PropType.string,
-    imageCollection: PropType.arrayOf(PropType.string),
-    sizes: PropType.arrayOf(PropType.number),
+    imageCollection: PropType.arrayOf(PropType.shape({
+      id: PropType.string,
+      url: PropType.string
+    })),
+    sizes: PropType.arrayOf(PropType.string),
     image: PropType.string,
     imageUrl: PropType.string,
     isFeatured: PropType.bool,
