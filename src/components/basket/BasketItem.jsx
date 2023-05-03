@@ -35,14 +35,14 @@ const BasketItem = ({ product }) => {
               <h5 className="my-0">{product.quantity}</h5>
             </div>
             <div>
-              <span className="spec-title">Size</span>
+              <span className="spec-title">Weight</span>
               <h5 className="my-0">
                 {product.selectedSize}
                 {' '}
-                mm
+                gm
               </h5>
             </div>
-            <div>
+            {/* <div>
               <span className="spec-title">Color</span>
               <div style={{
                 backgroundColor: product.selectedColor || product.availableColors[0],
@@ -51,7 +51,7 @@ const BasketItem = ({ product }) => {
                 borderRadius: '50%'
               }}
               />
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="basket-item-price">

@@ -1,0 +1,19 @@
+.collapsible {
+  overflow-x: hidden;
+  max-width: 90vw;
+}
+
+.collapsible-header {
+  margin-bottom: 8px;
+  margin-top: 0 !important;
+}
+
+.collapsible-header-title {}
+
+.collapsible-header-button {}
+
+.collapsible-content {
+  margin-bottom: 24px;
+  display: block;
+  overflow: hidden;
+}

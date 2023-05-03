@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
+import Collapsible from '@/components/common/Collapsible';
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -51,6 +52,11 @@ const ViewProduct = () => {
   const handleAddToBasket = () => {
     addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
   };
+
+
+  const ColCon = (<div>
+    Rolled Oats (50%), Foxtail Millet (Navane) (20%), Mixed Masala Powder (20%) (Maltodextrin, Iodised Salt, Mixed Spices, Refined Sugar, Natural Flavor, Hydrolyzed Vegetable Protein, Anticaking Agent (551), Stabilizer (414), Nature Identical Flavouring Substances, Flavor Enhancer (627, 631)), Jowar (5%), Dried Vegetables (Carrots-1.2%, Onion-0.8%, Peas-0.6%), Palm Oil, Maltodextrin, Dried Coriander Leaves (0.2%), Antioxidant (320).
+  </div>)
 
   return (
     <main className="content">
@@ -139,8 +145,30 @@ const ViewProduct = () => {
                 >
                   {isItemOnBasket(product.id) ? 'Remove From Basket' : 'Add To Basket'}
                 </button>
+                {/* <button
+                  className={`button button-small ${isItemOnWishlist(product.id) ? 'button-border button-border-gray' : ''}`}
+                  onClick={handleAddToWishlist}
+                  type="button"
+                >
+                  {isItemOnWishlist(product.id) ? 'Remove From Wishlist' : 'Add To Wishlist'}
+                </button> */}
               </div>
             </div>
+          </div>
+          <div>
+            <Collapsible
+              heading="Ingredients"
+              content={ColCon} />
+          </div>
+          <div>
+            <Collapsible
+              heading="Nutrition"
+              content={ColCon} />
+          </div>
+          <div>
+            <Collapsible
+              heading="Reviews"
+              content={ColCon} />
           </div>
           <div style={{ marginTop: '10rem' }}>
             <div className="display-header">

@@ -8,6 +8,7 @@ import {
 import bannerImg from '@/images/banner-pic.png';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Chatbot from '@/components/chatbot/ChatBot';
 
 
 const Home = () => {
@@ -83,6 +84,9 @@ const Home = () => {
               skeletonCount={6}
             />
           )}
+        </div>
+        <div className="chatbot">
+            <Chatbot/>
         </div>
       </div>
     </main>
