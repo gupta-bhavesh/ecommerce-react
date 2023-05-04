@@ -14,6 +14,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import Collapsible from '@/components/common/Collapsible';
+import About from './About';
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -54,12 +55,10 @@ const ViewProduct = () => {
   };
 
 
-  const ColCon = (<div>
-    Rolled Oats (50%), Foxtail Millet (Navane) (20%), Mixed Masala Powder (20%) (Maltodextrin, Iodised Salt, Mixed Spices, Refined Sugar, Natural Flavor, Hydrolyzed Vegetable Protein, Anticaking Agent (551), Stabilizer (414), Nature Identical Flavouring Substances, Flavor Enhancer (627, 631)), Jowar (5%), Dried Vegetables (Carrots-1.2%, Onion-0.8%, Peas-0.6%), Palm Oil, Maltodextrin, Dried Coriander Leaves (0.2%), Antioxidant (320).
-  </div>)
 
   return (
     <main className="content">
+
       {isLoading && (
         <div className="loader">
           <h4>Loading Product...</h4>
@@ -155,26 +154,13 @@ const ViewProduct = () => {
               </div>
             </div>
           </div>
-          <div>
-            <Collapsible
-              heading="Ingredients"
-              content={ColCon} />
-          </div>
-          <div>
-            <Collapsible
-              heading="Nutrition"
-              content={ColCon} />
-          </div>
-          <div>
-            <Collapsible
-              heading="Reviews"
-              content={ColCon} />
-          </div>
+          <About />
           <div style={{ marginTop: '10rem' }}>
             <div className="display-header">
               <h1>Recommended</h1>
               <Link to={RECOMMENDED_PRODUCTS}>See All</Link>
             </div>
+
             {errorFeatured && !isLoadingFeatured ? (
               <MessageDisplay
                 message={error}
@@ -187,6 +173,7 @@ const ViewProduct = () => {
           </div>
         </div>
       )}
+
     </main>
   );
 };

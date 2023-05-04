@@ -16,10 +16,8 @@ const Collapsible = ({ heading, content }) => {
           {!isExpanded ? <PlusOutlined /> : <MinusOutlined />}
         </div>
       </div>
-      <div {...getCollapseProps()}>
-        <div className="collapsible-content">
-          {content}
-        </div>
+      <div className="collapsible-content" {...getCollapseProps()}>
+        {content}
       </div>
       <div className="divider"></div>
     </div>
