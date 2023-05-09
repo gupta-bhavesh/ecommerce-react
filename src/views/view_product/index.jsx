@@ -13,8 +13,7 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
-import Collapsible from '@/components/common/Collapsible';
-import About from './About';
+import About from './AboutProduct';
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -26,7 +25,6 @@ const ViewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(product?.image || '');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-
   const {
     recommendedProducts,
     fetchRecommendedProducts,
@@ -58,7 +56,7 @@ const ViewProduct = () => {
 
   return (
     <main className="content">
-
+      
       {isLoading && (
         <div className="loader">
           <h4>Loading Product...</h4>
@@ -107,6 +105,7 @@ const ViewProduct = () => {
               <br />
               <span className="text-subtle">{product.brand}</span>
               <h1 className="margin-top-0">{product.name}</h1>
+
               <span>{product.description}</span>
               <br />
               <br />

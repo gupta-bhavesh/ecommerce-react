@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { CheckOutlined, LoadingOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseCircleOutlined, DeleteFilled, DeleteOutlined, LoadingOutlined } from '@ant-design/icons';
 import { ImageLoader } from '@/components/common';
 import {
   CustomColorInput, CustomCreatableSelect, CustomInput, CustomTextarea
@@ -225,7 +225,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                           title="Delete Image"
                           type="button"
                         >
-                          <i className="fa fa-times-circle" />
+                          <CloseCircleOutlined />
                         </button>
                       </div>
                     ))

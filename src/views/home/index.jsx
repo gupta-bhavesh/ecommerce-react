@@ -6,15 +6,15 @@ import {
   useDocumentTitle, useFeaturedProducts, useRecommendedProducts, useScrollTop
 } from '@/hooks';
 import bannerImg from '@/images/banner-pic.png';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Chatbot from '@/components/chatbot/ChatBot';
+import Mass from './Mass';
 
 
 const Home = () => {
   useDocumentTitle('MAP | Home');
   useScrollTop();
-
   const {
     featuredProducts,
     fetchFeaturedProducts,
@@ -31,6 +31,7 @@ const Home = () => {
   return (
     <main className="content">
       <div className="home">
+        <Mass />
         <div className="banner">
           <div className="banner-desc">
             <h1 className="text-thin">
@@ -39,7 +40,7 @@ const Home = () => {
               <strong>Enviornment</strong>
             </h1>
             <p>
-            Millet is the original superfood of the world - way before the term “superfood” was coined. It is more nutritionally dense than wheat and rice and has better health benefits. Yet somehow it got lost in time.
+              Millet is the original superfood of the world - way before the term “superfood” was coined. It is more nutritionally dense than wheat and rice and has better health benefits. Yet somehow it got lost in time.
             </p>
             <br />
             <Link to={SHOP} className="button">
@@ -86,7 +87,7 @@ const Home = () => {
           )}
         </div>
         <div className="chatbot">
-            <Chatbot/>
+          <Chatbot />
         </div>
       </div>
     </main>

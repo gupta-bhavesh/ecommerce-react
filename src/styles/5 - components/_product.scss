@@ -363,12 +363,12 @@
 }
 
 .product-form-delete-image {
-  color: red;
+  color: rgb(0, 0, 0);
   border: none;
   background: none;
   position: absolute;
-  top: -10px;
-  right: -10px;
+  top: 3px;
+  right: -2px;
 
   &:hover {
     color: darken(red, 10%);

@@ -84,7 +84,7 @@ const Chatbot = (props) => {
             /* Paste */
             {
               id: 'q-firstname',
-              message: 'What is your  name?',
+              message: 'How can i help you?',
               trigger: 'firstname',
             },
             {
