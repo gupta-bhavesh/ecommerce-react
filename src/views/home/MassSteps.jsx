@@ -3,16 +3,17 @@ import { useState } from 'react';
 import { CheckCircleOutlined, CheckOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Radio, Space } from 'antd';
 import { ImageLoader } from '@/components/common';
+import firebaseInstance from '../../services/firebase';
 
 const MassSteps = ({ modalCallback }) => {
 
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
-  const [value, setValue] = useState(1);
-  const onChange = (e) => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
-  };
+  const [age, setAge] = useState("");
+  const [weight, setWeight] = useState("");
+  const [height, setHeight] = useState("");
+  const [motto, setMotto] = useState("");
+
   const options = [{
     value: "Bajra",
     label: "Bajra",
@@ -46,7 +47,17 @@ const MassSteps = ({ modalCallback }) => {
   }, {
     value: "Amaranthus",
     label: "Amaranthus",
-  }]
+  }];
+
+  const massUpdate = () => {
+    console.log(age, weight, height, motto);
+    const mass = (height - 150) / 30 + age / 60 + (weight - 50) / 50 + motto;
+    console.log(mass);
+    firebaseInstance.updateProfile(firebaseInstance.auth.currentUser.uid, { age: age, weight: weight, height: height, motto: motto, mass: mass });
+
+    modalCallback()
+  }
+
   const steps = [
     {
       title: '',
@@ -58,7 +69,7 @@ const MassSteps = ({ modalCallback }) => {
         />
         <div style={{ width: "100%" }}>
           <Typography.Title level={3}>What is your height {"("}in cm{")"}?</Typography.Title>
-          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+          <InputNumber value={height} style={{ marginTop: 20 }} size="large" onChange={setHeight} />
         </div>
       </div >,
     },
@@ -72,7 +83,7 @@ const MassSteps = ({ modalCallback }) => {
         />
         <div style={{ width: "100%" }}>
           <Typography.Title level={3}>What is your weight {"("}in kg{")"}?</Typography.Title>
-          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+          <InputNumber value={weight} style={{ marginTop: 20 }} size="large" onChange={setWeight} />
         </div>
       </div >
     },
@@ -86,7 +97,7 @@ const MassSteps = ({ modalCallback }) => {
         />
         <div style={{ width: "100%" }}>
           <Typography.Title level={3}>What is your age?</Typography.Title>
-          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+          <InputNumber value={age} style={{ marginTop: 20 }} size="large" onChange={setAge} />
         </div>
       </div >
     },
@@ -100,11 +111,11 @@ const MassSteps = ({ modalCallback }) => {
         />
         <div style={{ width: "100%" }}>
           <Typography.Title level={3}>What is your motivation</Typography.Title>
-          <Radio.Group value={value} onChange={onChange}>
+          <Radio.Group value={motto} onChange={(val) => setMotto(val.target.value)}>
             <Space direction="vertical" style={{ alignItems: "start" }}>
-              <Radio value={1} style={{ padding: 5, background: "transparent", border: 0 }}>Weight Loss</Radio>
-              <Radio value={2} style={{ padding: 5, background: "transparent", border: 0 }}>Healthy Living</Radio>
-              <Radio value={3} style={{ padding: 5, background: "transparent", border: 0 }}>Explore</Radio>
+              <Radio value={0} style={{ padding: 5, background: "transparent", border: 0 }}>Weight Loss</Radio>
+              <Radio value={0.5} style={{ padding: 5, background: "transparent", border: 0 }}>Healthy Living</Radio>
+              <Radio value={1} style={{ padding: 5, background: "transparent", border: 0 }}>Explore</Radio>
             </Space>
           </Radio.Group>
         </div>
@@ -172,7 +183,7 @@ const MassSteps = ({ modalCallback }) => {
         {current < steps.length - 1 && (
           <button
             onClick={() => next()}
-            class="button button-small"
+            className="button button-small"
             type="button"
             style={{ position: "absolute", right: 30, bottom: 20 }}>
             Next
@@ -180,8 +191,8 @@ const MassSteps = ({ modalCallback }) => {
         )}
         {current === steps.length - 1 && (
           <button
-            onClick={() => modalCallback()}
-            class="button button-small"
+            onClick={massUpdate}
+            className="button button-small"
             type="button"
             style={{ position: "absolute", right: 30, bottom: 20 }}>
             Done
@@ -191,12 +202,12 @@ const MassSteps = ({ modalCallback }) => {
           <button
             onClick={() => prev()}
             style={{ position: "absolute", left: 30, bottom: 20 }}
-            class="button button-small button-border button-border-gray"
+            className="button button-small button-border button-border-gray"
             type="button">
             Previous
           </button>
         )}
-      </div>
+      </div >
     </>
   );
 };

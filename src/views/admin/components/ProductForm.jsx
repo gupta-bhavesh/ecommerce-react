@@ -41,7 +41,10 @@ const FormSchema = Yup.object().shape({
     .min(1, 'Please enter at least 1 keyword for this product.'),
   sizes: Yup.array()
     .of(Yup.number())
-    .min(1, 'Please enter a size for this product.'),
+    .min(1, 'Please enter a size available for this product.'),
+  pincodes: Yup.array()
+    .of(Yup.number())
+    .min(1, 'Please enter a pincode for this product.'),
   isFeatured: Yup.boolean(),
   isRecommended: Yup.boolean(),
   availableColors: Yup.array()
@@ -58,6 +61,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     description: product?.description || '',
     keywords: product?.keywords || [],
     sizes: product?.sizes || [],
+    pincodes: product?.pincodes || [],
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
     availableColors: product?.availableColors || []
@@ -87,7 +91,6 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
       alert('Product thumbnail image is required.');
     }
   };
-
   return (
     <div>
       <Formik
@@ -172,7 +175,35 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                 &nbsp;
                 <div className="product-form-field">
                   <CustomCreatableSelect
-                    defaultValue={values.keywords.map((key) => ({ value: key, label: key }))}
+                    defaultValue={values.sizes.map((key) => ({ value: key, label: key }))}
+                    name="sizes"
+                    iid="sizes"
+                    type="number"
+                    isMulti
+                    disabled={isLoading}
+                    placeholder="Create/Select Sizes"
+                    label="* Quantity (gms)"
+                  />
+                </div>
+              </div>
+              <div className="d-flex">
+                <div className="product-form-field">
+                  <CustomCreatableSelect
+                    defaultValue={values.pincodes.map((key) => ({ value: key, label: key }))}
+                    name="pincodes"
+                    type="number"
+                    iid="pincodes"
+                    isMulti
+                    disabled={isLoading}
+                    placeholder="Select Pincodes as per Availability"
+                    label="* Pincodes"
+                  />
+                </div>
+                &nbsp;
+                {console.log(values)}
+                <div className="product-form-field">
+                  <CustomCreatableSelect
+                    defaultValue={values.sizes.map((key) => ({ value: key, label: key }))}
                     name="sizes"
                     iid="sizes"
                     type="number"
@@ -323,6 +354,7 @@ ProductForm.propTypes = {
     keywords: PropType.arrayOf(PropType.string),
     imageCollection: PropType.arrayOf(PropType.object),
     sizes: PropType.arrayOf(PropType.string),
+    pincodes: PropType.number,
     image: PropType.string,
     imageUrl: PropType.string,
     isFeatured: PropType.bool,

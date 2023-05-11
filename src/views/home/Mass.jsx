@@ -1,9 +1,11 @@
 import { Button, Modal } from 'antd';
 import { useState } from 'react';
 import MassSteps from './MassSteps';
+import firebaseInstance from '../../services/firebase';
 const Mass = () => {
-  const [loading, setLoading] = useState(false);
-  const [mass, setMass] = useState(null);
+  const hasMass = firebaseInstance.getUser(firebaseInstance.auth.currentUser.uid)
+    .then(data=>setMass("mass" in data.data()));
+  const [mass, setMass] = useState(true);
 
   const handleOk = () => {
     setLoading(true);
@@ -17,13 +19,13 @@ const Mass = () => {
   return (
     <>
       <Modal
-        open={mass == null}
+        open={!mass}
         title="MASS CALCULATOR"
         onOk={handleOk}
         footer={[]}
         width={700}
       >
-        <MassSteps modalCallback={()=>setMass(1)}/>
+        <MassSteps modalCallback={() => setMass(true)} />
       </Modal>
     </>
   );
