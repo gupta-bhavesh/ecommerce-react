@@ -1,11 +1,12 @@
 import { Button, Modal } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import MassSteps from './MassSteps';
-import firebaseInstance from '../../services/firebase';
+import { useSelector } from 'react-redux';
 const Mass = () => {
-  const hasMass = firebaseInstance.getUser(firebaseInstance.auth.currentUser.uid)
-    .then(data=>setMass("mass" in data.data()));
-  const [mass, setMass] = useState(true);
+
+  const [mass, setMass] = useState(useSelector((state) => ({
+    mass: state.profile.mass,
+  })).mass);
 
   const handleOk = () => {
     setLoading(true);
@@ -19,13 +20,13 @@ const Mass = () => {
   return (
     <>
       <Modal
-        open={!mass}
+        open={mass==0}
         title="MASS CALCULATOR"
         onOk={handleOk}
         footer={[]}
         width={700}
       >
-        <MassSteps modalCallback={() => setMass(true)} />
+        <MassSteps modalCallback={(val) => setMass(val)} />
       </Modal>
     </>
   );

@@ -55,7 +55,7 @@ const MassSteps = ({ modalCallback }) => {
     console.log(mass);
     firebaseInstance.updateProfile(firebaseInstance.auth.currentUser.uid, { age: age, weight: weight, height: height, motto: motto, mass: mass });
 
-    modalCallback()
+    modalCallback(mass)
   }
 
   const steps = [

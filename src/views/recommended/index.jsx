@@ -3,18 +3,22 @@ import { ProductShowcaseGrid } from '@/components/product';
 import { useDocumentTitle, useRecommendedProducts, useScrollTop } from '@/hooks';
 import bannerImg from '@/images/banner-girl-1.png';
 import React from 'react';
+import { shallowEqual, useSelector, useStore } from 'react-redux';
+import { massFilter } from '@/selectors/selector';
+import { ProductGrid, ProductList } from '@/components/product';
 
 const RecommendedProducts = () => {
   useDocumentTitle('Recommended Products | MAP');
   useScrollTop();
-
-  const {
-    recommendedProducts,
-    fetchRecommendedProducts,
-    isLoading,
-    error
-  } = useRecommendedProducts();
-
+  const store = useSelector((state) => ({
+    filteredProducts: massFilter(state.products.items, state.profile.mass),
+    products: state.products,
+    requestStatus: state.app.requestStatus,
+    isLoading: state.app.loading,
+  }), shallowEqual);
+  
+  const xx = useStore();
+  console.log("hi", xx.getState())
   return (
     <main className="content">
       <div className="featured">
@@ -26,22 +30,13 @@ const RecommendedProducts = () => {
             <img src={bannerImg} alt="" />
           </div>
         </div>
-        <div className="display">
-          <div className="product-display-grid">
-            {(error && !isLoading) ? (
-              <MessageDisplay
-                message={error}
-                action={fetchRecommendedProducts}
-                buttonLabel="Try Again"
-              />
-            ) : (
-              <ProductShowcaseGrid
-                products={recommendedProducts}
-                skeletonCount={6}
-              />
-            )}
-          </div>
-        </div>
+        <main className="content">
+          <section className="product-list-wrapper">
+            <ProductList {...store}>
+              <ProductGrid products={store.filteredProducts} />
+            </ProductList>
+          </section>
+        </main>
       </div>
     </main>
   );

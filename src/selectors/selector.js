@@ -1,4 +1,6 @@
 /* eslint-disable no-plusplus */
+
+
 /* eslint-disable no-else-return */
 export const selectFilter = (products, filter) => {
   if (!products || products.length === 0) return [];
@@ -29,6 +31,14 @@ export const selectFilter = (products, filter) => {
     return a.price > b.price ? 1 : -1;
   });
 };
+
+export const massFilter = (products, mass) => {
+  if (!products || products.length === 0) return [];
+  return products.sort((a, b) => {
+    return Math.abs(mass - a.mass) > Math.abs(mass - b.mass) ? 1 : -1
+  });
+};
+
 
 // Select product with highest price
 export const selectMax = (products) => {
