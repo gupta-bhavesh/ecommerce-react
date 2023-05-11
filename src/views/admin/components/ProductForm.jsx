@@ -49,7 +49,9 @@ const FormSchema = Yup.object().shape({
   isRecommended: Yup.boolean(),
   availableColors: Yup.array()
     .of(Yup.string().required())
-    .min(1, 'Please add a default color for this product.')
+    .min(1, 'Please add a default color for this product.'),
+  mass: Yup.number()
+    .required('Mass is required.'),
 });
 
 const ProductForm = ({ product, onSubmit, isLoading }) => {
@@ -62,6 +64,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
     keywords: product?.keywords || [],
     sizes: product?.sizes || [],
     pincodes: product?.pincodes || [],
+    mass: product?.mass || 0,
     isFeatured: product?.isFeatured || false,
     isRecommended: product?.isRecommended || false,
     availableColors: product?.availableColors || []
@@ -75,7 +78,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
   } = useFileHandler({ image: {}, imageCollection: product?.imageCollection || [] });
 
   const onSubmitForm = (form) => {
-    if (imageFile.image.file || product.imageUrl) {
+    if (imageFile.image.url || product.image) {
       onSubmit({
         ...form,
         quantity: 1,
@@ -83,7 +86,7 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
         // of name here instead in firebase functions
         name_lower: form.name.toLowerCase(),
         dateAdded: new Date().getTime(),
-        image: imageFile?.image?.file || product.imageUrl,
+        image: imageFile?.image?.url || product.image,
         imageCollection: imageFile.imageCollection
       });
     } else {
@@ -202,15 +205,13 @@ const ProductForm = ({ product, onSubmit, isLoading }) => {
                 &nbsp;
                 {console.log(values)}
                 <div className="product-form-field">
-                  <CustomCreatableSelect
-                    defaultValue={values.sizes.map((key) => ({ value: key, label: key }))}
-                    name="sizes"
-                    iid="sizes"
-                    type="number"
-                    isMulti
+                  <Field
                     disabled={isLoading}
-                    placeholder="Create/Select Sizes"
-                    label="* Quantity (gms)"
+                    name="mass"
+                    type="number"
+                    id="mass"
+                    label="* MASS"
+                    component={CustomInput}
                   />
                 </div>
               </div>
@@ -350,6 +351,7 @@ ProductForm.propTypes = {
     brand: PropType.string,
     price: PropType.number,
     maxQuantity: PropType.number,
+    mass: PropType.number,
     description: PropType.string,
     keywords: PropType.arrayOf(PropType.string),
     imageCollection: PropType.arrayOf(PropType.object),
