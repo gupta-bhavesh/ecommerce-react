@@ -21,7 +21,7 @@ const Mass = () => {
         title="MASS CALCULATOR"
         onOk={handleOk}
         footer={[]}
-        width={800}
+        width={700}
       >
         <MassSteps modalCallback={()=>setMass(1)}/>
       </Modal>

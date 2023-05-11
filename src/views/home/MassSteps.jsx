@@ -2,6 +2,8 @@ import { Button, InputNumber, message, Result, Select, Steps, theme, Typography 
 import { useState } from 'react';
 import { CheckCircleOutlined, CheckOutlined, LoadingOutlined, SmileOutlined, SolutionOutlined, UserOutlined } from '@ant-design/icons';
 import { Input, Radio, Space } from 'antd';
+import { ImageLoader } from '@/components/common';
+
 const MassSteps = ({ modalCallback }) => {
 
   const { token } = theme.useToken();
@@ -24,69 +26,114 @@ const MassSteps = ({ modalCallback }) => {
     value: "Sorghum",
     label: "Sorghum",
   }, {
-    value: "a",
-    label: "a",
+    value: "Banyard Millet",
+    label: "Banyard Millet",
   }, {
-    value: "b",
-    label: "b",
+    value: "Proso Millet",
+    label: "Proso Millet",
+  }, {
+    value: "Foxtail Millet",
+    label: "Foxtail Millet",
+  }, {
+    value: "Kodo Millet",
+    label: "Kodo Millet",
+  }, {
+    value: "Little Millet",
+    label: "Little Millet",
+  }, {
+    value: "Buckwheat",
+    label: "Buckwheat",
+  }, {
+    value: "Amaranthus",
+    label: "Amaranthus",
   }]
   const steps = [
     {
-      title: 'Step 1',
-      content: <div style={{ height: 250 }}>
-        <Typography.Title level={3}>What is your height {"("}in cm{")"}?</Typography.Title>
-        <InputNumber style={{ marginBottom: 20, marginTop: 20 }} size="large" onChange={() => console.log("value")} />
-      </div >,
-    },
-    {
-      title: 'Step 2',
-      content: <div style={{ height: 250 }}>
-        <Typography.Title level={3}>What is your weight?</Typography.Title>
-        <InputNumber style={{ marginBottom: 20, marginTop: 20 }} size="large" onChange={() => console.log("value")} />
-      </div >
-    },
-    {
-      title: 'Step 3',
-      content: <div style={{ height: 250 }}>
-        <Typography.Title level={3}>What is your age?</Typography.Title>
-        <InputNumber style={{ marginBottom: 20, marginTop: 20 }} size="large" onChange={() => console.log("value")} />
-      </div >
-    },
-    {
-      title: 'Step 4',
-      content: <div style={{ height: 250 }}>
-        <Typography.Title level={3}>What is your motivation</Typography.Title>
-        <Radio.Group value={value}>
-          <Space direction="vertical">
-            <Radio value={1}>Option A</Radio>
-            <Radio value={2}>Option B</Radio>
-            <Radio value={3}>Option C</Radio>
-            <Radio value={4}>
-              More...
-              {value === 4 ? <Input style={{ width: 100, marginLeft: 10 }} /> : null}
-            </Radio>
-          </Space>
-        </Radio.Group>
-      </div >,
-    },
-    {
-      title: 'Step 5',
-      content: <div style={{ height: 250 }}>
-        <Typography.Title level={3}>Are you allergic to any millet</Typography.Title>
-        <Select
-          mode="tags"
-          placeholder="Please select"
-          style={{
-            width: '50%',
-            marginBottom: 20,
-            marginTop: 20
-          }}
-          options={options}
+      title: '',
+      content: <div style={{ height: 250, display: 'flex' }}>
+        <img
+          alt={""}
+          style={{ width: 250, height: 250 }}
+          src={"../../../static/ques-mark.png"}
         />
+        <div style={{ width: "100%" }}>
+          <Typography.Title level={3}>What is your height {"("}in cm{")"}?</Typography.Title>
+          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+        </div>
+      </div >,
+    },
+    {
+      title: '',
+      content: <div style={{ height: 250, display: 'flex' }}>
+        <img
+          alt={""}
+          style={{ width: 250, height: 250 }}
+          src={"../../../static/ques-mark.png"}
+        />
+        <div style={{ width: "100%" }}>
+          <Typography.Title level={3}>What is your weight {"("}in kg{")"}?</Typography.Title>
+          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+        </div>
+      </div >
+    },
+    {
+      title: '',
+      content: <div style={{ height: 250, display: 'flex' }}>
+        <img
+          alt={""}
+          style={{ width: 250, height: 250 }}
+          src={"../../../static/ques-mark.png"}
+        />
+        <div style={{ width: "100%" }}>
+          <Typography.Title level={3}>What is your age?</Typography.Title>
+          <InputNumber style={{ marginTop: 20 }} size="large" onChange={() => console.log("value")} />
+        </div>
+      </div >
+    },
+    {
+      title: '',
+      content: <div style={{ height: 250, display: 'flex' }}>
+        <img
+          alt={""}
+          style={{ width: 250, height: 250 }}
+          src={"../../../static/ques-mark.png"}
+        />
+        <div style={{ width: "100%" }}>
+          <Typography.Title level={3}>What is your motivation</Typography.Title>
+          <Radio.Group value={value} onChange={onChange}>
+            <Space direction="vertical" style={{ alignItems: "start" }}>
+              <Radio value={1} style={{ padding: 5, background: "transparent", border: 0 }}>Weight Loss</Radio>
+              <Radio value={2} style={{ padding: 5, background: "transparent", border: 0 }}>Healthy Living</Radio>
+              <Radio value={3} style={{ padding: 5, background: "transparent", border: 0 }}>Explore</Radio>
+            </Space>
+          </Radio.Group>
+        </div>
+      </div >,
+    },
+    {
+      title: '',
+      content: <div style={{ height: 250, display: 'flex' }}>
+        <img
+          alt={""}
+          style={{ width: 250, height: 250 }}
+          src={"../../../static/ques-mark.png"}
+        />
+        <div style={{ width: "100%" }}>
+          <Typography.Title level={3}>Are you allergic to any millet</Typography.Title>
+          <Select
+            mode="tags"
+            placeholder="Please select"
+            style={{
+              width: '50%',
+              marginTop: 20
+            }}
+            options={options}
+          />
+        </div>
       </div>,
     },
     {
-      title: 'Done',
+      title: '',
       content: <Result style={{ height: 275 }}
         status="success"
         title="Yay! You have finished all the steps"
