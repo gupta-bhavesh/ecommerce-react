@@ -10,6 +10,7 @@ import {
   useRecommendedProducts,
   useScrollTop
 } from '@/hooks';
+import ReactImageMagnify from 'react-image-magnify';
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
@@ -110,11 +111,27 @@ const ViewProduct = () => {
             )}
             <div className="product-modal-image-wrapper">
               {selectedColor && <input type="color" disabled ref={colorOverlay} id="color-overlay" />}
-              <ImageLoader
+              <ReactImageMagnify
+              className="product-modal-image"
+              enlargedImageContainerStyle={{zIndex:3}}
+              lensStyle={{width:10, height:10}}
+              {...{
+                smallImage: {
+                  alt: product.name,
+                  isFluidWidth: true,
+                  src: selectedImage
+                },
+                largeImage: {
+                  src: selectedImage,
+                  width: 1200,
+                  height: 1200
+                }
+              }} />
+              {/* <ImageLoader
                 alt={product.name}
                 className="product-modal-image"
                 src={selectedImage}
-              />
+              /> */}
             </div>
             <div className="product-modal-details">
               <br />
@@ -133,7 +150,7 @@ const ViewProduct = () => {
                 <Select
                   placeholder="--Select --"
                   onChange={onSelectedSizeChange}
-                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} gm`, value: size }))}
+                  options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} gm (${displayMoney(product.price / size)}/gm)`, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
               </div>
@@ -174,6 +191,7 @@ const ViewProduct = () => {
                 </div>
               )} */}
               <h1>{displayMoney(product.price)}</h1>
+
               <div className="product-modal-action">
                 <button
                   className={`button button-small ${isItemOnBasket(product.id) ? 'button-border button-border-gray' : ''}`}
