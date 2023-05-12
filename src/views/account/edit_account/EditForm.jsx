@@ -31,10 +31,42 @@ const EditForm = ({ isLoading, authProvider }) => {
       />
       <Field
         disabled={isLoading}
-        name="address"
+        name="addressLine1"
         type="text"
         label="Address (Will be used for checkout)"
-        placeholder="#245 Brgy. Maligalig, Arayat Pampanga, Philippines"
+        placeholder="Address (Area and Street)"
+        component={CustomInput}
+        style={{ textTransform: 'capitalize' }}
+      />
+      <Field
+        disabled={isLoading}
+        name="addressLine2"
+        type="text"
+        placeholder="Locality"
+        component={CustomInput}
+        style={{ textTransform: 'capitalize' }}
+      />
+      <Field
+        disabled={isLoading}
+        name="city"
+        type="text"
+        placeholder="City/District/Town"
+        component={CustomInput}
+        style={{ textTransform: 'capitalize' }}
+      />
+      <Field
+        disabled={isLoading}
+        name="state"
+        type="text"
+        placeholder="State"
+        component={CustomInput}
+        style={{ textTransform: 'capitalize' }}
+      />
+      <Field
+        disabled={isLoading}
+        name="pincode"
+        type="text"
+        placeholder="Pincode"
         component={CustomInput}
         style={{ textTransform: 'capitalize' }}
       />
@@ -59,11 +91,11 @@ const EditForm = ({ isLoading, authProvider }) => {
         <button
           className="button w-100-mobile"
           disabled={isLoading}
-          onClick={submitForm}
+          onClick={() => { console.log(values); submitForm() }}
           type="button"
         >
           {isLoading ? <LoadingOutlined /> : <CheckOutlined />}
-                    &nbsp;
+          &nbsp;
           {isLoading ? 'Updating Profile' : 'Update Profile'}
         </button>
       </div>

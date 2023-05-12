@@ -20,7 +20,11 @@ const FormSchema = Yup.object().shape({
   email: Yup.string()
     .email('Email is not valid.')
     .required('Email is required.'),
-  address: Yup.string(),
+  addressLine1: Yup.string(),
+  addressLine2: Yup.string(),
+  city: Yup.string(),
+  state: Yup.string(),
+  pincode: Yup.number(),
   mobile: Yup.object()
     .shape({
       country: Yup.string(),
@@ -50,7 +54,11 @@ const EditProfile = () => {
   const initFormikValues = {
     fullname: profile.fullname || '',
     email: profile.email || '',
-    address: profile.address || '',
+    addressLine1: profile.address.addressLine1 || '',
+    addressLine2: profile.address.addressLine2 || '',
+    city: profile.address.city || '',
+    state: profile.address.state || '',
+    pincode: profile.address.pincode || '',
     mobile: profile.mobile || {}
   };
 
@@ -61,11 +69,18 @@ const EditProfile = () => {
   } = useFileHandler({ avatar: {}, banner: {} });
 
   const update = (form, credentials = {}) => {
+    console.log(form);
     dispatch(updateProfile({
       updates: {
         fullname: form.fullname,
         email: form.email,
-        address: form.address,
+        address: {
+          addressLine1: form.addressLine1,
+          addressLine2: form.addressLine2,
+          city: form.city,
+          state: form.state,
+          pincode: form.pincode,
+        },
         mobile: form.mobile,
         avatar: profile.avatar,
         banner: profile.banner

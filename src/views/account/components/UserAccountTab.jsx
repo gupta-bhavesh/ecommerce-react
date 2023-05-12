@@ -44,7 +44,9 @@ const UserProfile = (props) => {
           <span>Address</span>
           <br />
           {profile.address ? (
-            <h5>{profile.address}</h5>
+            <>
+              <h5>{profile.address.addressLine1} {profile.address.addressLine2} {profile.address.city} {profile.address.state} {profile.address.pincode}</h5>
+            </>
           ) : (
             <h5 className="text-subtle text-italic">Address not set</h5>
           )}
