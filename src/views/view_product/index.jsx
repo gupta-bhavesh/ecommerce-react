@@ -14,6 +14,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Select from 'react-select';
 import About from './AboutProduct';
+import { Button, Input, Space } from 'antd';
 
 const ViewProduct = () => {
   const { id } = useParams();
@@ -25,6 +26,8 @@ const ViewProduct = () => {
   const [selectedImage, setSelectedImage] = useState(product?.image || '');
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+  const [pincode, setPincode] = useState('');
+  const [avai, setAvai] = useState(-1);
   const {
     recommendedProducts,
     fetchRecommendedProducts,
@@ -48,15 +51,27 @@ const ViewProduct = () => {
     }
   };
 
+  const checkAvai = async (pin) => {
+    if (product["pincodes"].includes(String(pin))) {
+      setAvai(1);
+      setTimeout(() => {
+        setAvai(-1);
+      }, 1000);
+    } else {
+      setAvai(0);
+      setTimeout(() => {
+        setAvai(-1);
+      }, 1000);
+    }
+  }
+
   const handleAddToBasket = () => {
     addToBasket({ ...product, selectedColor, selectedSize: selectedSize || product.sizes[0] });
   };
 
-
-
   return (
     <main className="content">
-      
+
       {isLoading && (
         <div className="loader">
           <h4>Loading Product...</h4>
@@ -121,6 +136,30 @@ const ViewProduct = () => {
                   options={product.sizes.sort((a, b) => (a < b ? -1 : 1)).map((size) => ({ label: `${size} gm`, value: size }))}
                   styles={{ menu: (provided) => ({ ...provided, zIndex: 10 }) }}
                 />
+              </div>
+              <br />
+              <div>
+                <span className="text-subtle">Check Availability</span>
+                <br />
+                <br />
+                <Space.Compact style={{ width: '100%' }}>
+                  <Input placeholder="Enter Pincode" value={pincode} onChange={(val) => setPincode(val.target.value)} />
+                  <button
+                    className={`button button-small`}
+                    onClick={() => checkAvai(pincode)}
+                    type="button"
+                  >
+                    Check
+                  </button>
+                </Space.Compact>
+                {avai == 1 && <div style={{ marginTop: 10, marginRight: 20, color: "green" }}>
+                  Seller available
+                </div>}
+                {avai == 0 && <div style={{ marginTop: 10, marginRight: 20, color: "red" }}>
+                  No sellers at selected Pincode
+                </div>}
+                {avai == -1 && <div />}
+
               </div>
               <br />
               {/* {product.availableColors.length >= 1 && (
