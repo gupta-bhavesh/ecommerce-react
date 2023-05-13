@@ -1,7 +1,9 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { contactConfig } from "./content_option"
-import bannerImg from '@/images/banner-girl-1.png';
+// import bannerImg from '@/images/banner-girl-1.png';
+import bannerImg from '@/images/banner-pic.png';
+
 // import './contact.css'
 export default function ContactUs() {
 

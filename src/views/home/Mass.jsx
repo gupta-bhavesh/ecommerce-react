@@ -7,7 +7,6 @@ const Mass = () => {
   const [mass, setMass] = useState(useSelector((state) => ({
     mass: state.profile.mass,
   })).mass);
-
   const handleOk = () => {
     setLoading(true);
     setTimeout(() => {
